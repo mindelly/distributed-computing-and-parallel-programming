@@ -63,11 +63,14 @@ int main() {
     int i, j, k; 
     double sum;
     #pragma omp parallel for firstprivate (j, k, sum) lastprivate(i) shared(A, L, U)
+    //передача переменных команде pragma для дальнейшей успешной работы
     for (int i = 0; i < n; i++){
         for (int j = 0; j < n; j++){
             U[0][i] = A[0][i];
             L[i][0] = A[i][0] / U[0][0];
             double sum = 0.;
+            // единственное, что мы можем ускорить это вычисление суммы -
+                //директивой "reduction"
             #pragma parallel omp for reduction(+:sum)
             for (int k = 0; k < i; k++){
                 sum += L[i][k] * U[k][j];
