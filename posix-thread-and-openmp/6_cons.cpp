@@ -1,9 +1,10 @@
 #include <iostream>
-#include <cstdlib> // для system
+#include <cstdlib>
+#include <time.h>
 using namespace std;
 
 
-float RandomDouble(double a, double b) {
+double RandomDouble(double a, double b) {
     double random = ((double) rand()) / (double) RAND_MAX;
     double diff = b - a;
     double r = random * diff;
@@ -11,11 +12,12 @@ float RandomDouble(double a, double b) {
 }
 
 int main() {
-    const int n = 500; // размерность матрицы
-    double A[n][n]; // матрица коэффициентов
-    double sum = 0, sum1;
-    double b[n]; // вектор-столбец свободных членов
-
+    double **A, *b; 
+    const int n = 2000; // размерность матрицы
+    A = new double*[n]; // матрица коэффициентов
+    double sum, sum1;
+    b = new double[n]; // вектор-столбец свободных членов
+    srand(time(NULL));
     // Ввод столбца свободных членов
     cout << "b: ";
     for (int i = 0; i < n; i++){
@@ -26,7 +28,8 @@ int main() {
     // Ввод матрицы A
     cout << "A: ";
     cout << endl;
-    for (int i = 0; i < n; i++) { 
+    for (int i = 0; i < n; i++) {
+        A[i] = new double[n];
         for (int j = 0; j < n; j++){
             A[i][j] = RandomDouble(1, 10);
 
@@ -34,9 +37,14 @@ int main() {
     }
     
 
-    double L[n][n];
-    double U[n][n];
+    double **L, **U;
 
+    L = new double*[n];
+    U = new double*[n];
+    for (int i = 0; i < n; i++){
+    	L[i] = new double[n];
+        U[i] = new double[n];
+	}
     for (int i = 0; i < n; i++){
         for (int j = 0; j < n; j++){
             U[0][i] = A[0][i];
@@ -46,15 +54,18 @@ int main() {
                 sum += L[i][k] * U[k][j];
             }
             U[i][j] = A[i][j] - sum;
+            
             if (i > j){
                 L[j][i] = 0;
             }
             else{
                 sum = 0;
+                
                 for (int k = 0; k < i; k++){
                     sum += L[j][k] * U[k][i];
                 }
                 L[j][i] = (A[j][i] - sum) / U[i][i];
+                
             }
         }
     }
@@ -79,11 +90,13 @@ int main() {
 
 
 // Объявление векторов и сумм для их вычисления
-double y[n];
-double x[n];
+//double y[n];
+//double x[n];
+double *y, *x;
 double sum2, sum3;
 // Вычисление y
-
+y = new double[n];
+x = new double[n];
 y[0] = b[0];
 
 for (int h = 1; h < n; h++){
@@ -111,7 +124,7 @@ cout << endl;
 // Вывод искомого вектора x
 cout << "X: ";
 for (int j = 0; j < n; j++){
-    cout << " " << x[j] << " ";
+    cout << x[j] << " ";
 }
 
 

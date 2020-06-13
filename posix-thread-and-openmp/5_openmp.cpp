@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <cstdlib>
+#include <time.h>
 #include <omp.h>
 using namespace std;
 
@@ -19,6 +20,7 @@ int NUM_THREADS = 8;
 
 int main()
 {
+  srand(time(NULL));
   int row1, row2, col1, col2;
   double** a, ** b, ** c;
   row1 = N;
