@@ -1,2 +1,3 @@
 .vscode/
-wtf.cpp/
+wtf.cpp
+*.exe

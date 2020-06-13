@@ -5,8 +5,10 @@
 
 #include <stdio.h>
 #include <random>
-#include "mpi.h"
-#define N     2000        /* number of rows and columns in matrix */
+#include <mpi.h>
+#include <time.h>
+
+#define N     2000         /* number of rows and columns in matrix */
 
 MPI_Status status;
 
@@ -21,7 +23,8 @@ float RandomDouble(double a, double b) {
 
 
 main(int argc, char **argv)
-{
+{ 
+  srand(time(NULL));
   int numtasks,taskid,numworkers,source,dest,rows,offset,i,j,k;
 
   //struct timeval start, stop;
