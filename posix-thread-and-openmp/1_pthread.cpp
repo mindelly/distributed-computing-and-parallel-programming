@@ -24,7 +24,7 @@ void* worker(void* p)
   s = 0.0;
   for(i = my; i < n; i += numt)
     s += (f(i*h) + f((i+1)*h))/2;
-  r[my] = s; 
+  r[my] = s;
   return NULL;
 }
 
@@ -33,7 +33,7 @@ int main(int arc, char* argv[])
   double S;
   pthread_t *threads;
   int i, rc;
-  clock_t tStart = clock();
+  //clock_t tStart = clock();
 
   numt = atoi(argv[1]);
   n = atoi(argv[2]);

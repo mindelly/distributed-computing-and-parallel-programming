@@ -19,7 +19,6 @@ void merge_sort(Iter first, Iter last)
     }
 }
  
-
 int main()
 {   
     vector<int> v;
