@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const long N = 10000000;
+const long N = 100000000;
 
 template<class Iter>
 void merge_sort(Iter first, Iter last)
